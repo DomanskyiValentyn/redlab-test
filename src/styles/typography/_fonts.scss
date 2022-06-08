@@ -1,0 +1,43 @@
+h1 {
+  @include font_h1;
+
+  &.hero {
+    @include font_hero;
+  }
+}
+
+h2 {
+  @include font_h2;
+}
+
+h3 {
+  @include font_h3;
+}
+
+h4 {
+  @include font_h4;
+}
+
+h5 {
+  @include font_h5;
+}
+
+h6 {
+  @include font_h6;
+}
+
+p {
+  @include font_text;
+}
+
+.text-large {
+  @include font_text-large;
+}
+
+.article-text {
+  @include font_article-text;
+}
+
+.caption {
+  @include font_caption;
+}

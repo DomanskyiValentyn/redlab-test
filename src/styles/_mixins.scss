@@ -1,0 +1,82 @@
+@mixin strict_size($height, $width) {
+  @if $height {
+    height: #{$height};
+    min-height: #{$height};
+    max-height: #{$height};
+  }
+
+  @if $width {
+    width: #{$width};
+    min-width: #{$width};
+    max-width: #{$width};
+  }
+}
+
+@mixin for-custom($size) {
+  @media only screen and (max-width: #{$size}) {
+    @content;
+  }
+}
+
+@mixin for-tablet {
+  @media only screen and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin for-mobile {
+  @media only screen and (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin max-width-content {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  box-sizing: content-box;
+}
+
+@mixin rotate_element {
+  // ! NEED THE ELEMENT TO FACE LEFT
+
+  &.top-left {
+    transform: rotate(45deg);
+  }
+  &.top {
+    transform: rotate(90deg);
+  }
+  &.top-right {
+    transform: rotate(125deg);
+  }
+  &.right {
+    transform: rotate(180deg);
+  }
+  &.bottom-right {
+    transform: rotate(225deg);
+  }
+  &.bottom {
+    transform: rotate(270deg);
+  }
+  &.bottom-left {
+    transform: rotate(315deg);
+  }
+}
+
+@mixin font-face($family, $path, $weight, $haveItalic: false, $extension: 'ttf', $format: 'opentype') {
+  @font-face {
+    font-family: $family;
+    font-weight: $weight;
+    font-style: normal;
+    src: url('~@/assets/fonts/#{$family}/#{$family}-#{$path}.#{$extension}') format('#{$format}');
+  }
+
+  @if $haveItalic {
+    @font-face {
+      font-family: $family;
+      font-weight: $weight;
+      font-style: italic;
+      src: url('~@/assets/fonts/#{$family}/#{$family}-#{$path}_italic.#{$extension}') format('#{$format}');
+    }
+  }
+}
