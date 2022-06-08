@@ -81,14 +81,14 @@ export default class Header extends Vue {
 
   public toggle = TOGGLE.house;
 
-  private checkScroll(): void {
+  private watchScroll(): void {
     this.isPageScroll = !!window.scrollY;
   }
 
   mounted(): void {
-    this.checkScroll();
+    this.watchScroll();
 
-    document.addEventListener('scroll', this.checkScroll);
+    document.addEventListener('scroll', this.watchScroll);
   }
 }
 </script>
@@ -96,6 +96,7 @@ export default class Header extends Vue {
 <style lang="scss">
 $toggle_house_weight: 55px;
 $toggle_office_weight: 65px;
+
 .top-header {
   display: flex;
   justify-content: space-between;
@@ -106,8 +107,6 @@ $toggle_office_weight: 65px;
   left: 0;
   z-index: 25;
 
-  @include strict_size($top_header_height, 100%);
-
   padding: {
     top: 22px;
     bottom: 22px;
@@ -115,9 +114,20 @@ $toggle_office_weight: 65px;
     right: 36px;
   };
 
+  @include strict_size($top_header_height, 100%);
+
+  background: rgba($color: $white, $alpha: 0);
+
+  transition: $trs;
+
   &.scroll {
     background-color: $white;
+
     box-shadow: 0px 2px 14px rgba(0, 0, 0, 0.07);
+
+    .top-header__toggle {
+      border-color: $middle_grey;
+    }
   }
 
   svg.logo {
@@ -133,9 +143,12 @@ $toggle_office_weight: 65px;
 
     background-color: $white;
 
+    border: 1px solid $white;
     border-radius: 48px;
 
     padding: 2px;
+
+    transition: $trs;
 
     &::before {
       display: block;
@@ -143,9 +156,9 @@ $toggle_office_weight: 65px;
       content: '';
 
       position: absolute;
-      top: 0;
+      top: 2px;
 
-      height: 100%;
+      height: 31px;
 
       background-color: $purple;
 
@@ -183,18 +196,21 @@ $toggle_office_weight: 65px;
 
       transition: $trs;
 
-      // background-color: #fff;
+      &:hover {
+        background-color: $purple_10p;
+        color: $purple;
+      }
 
       &.active {
         color: $white;
       }
 
       &.house {
-        @include strict_size(false, $toggle_house_weight);
+        @include strict_size(31px, $toggle_house_weight);
       }
 
       &.office {
-        @include strict_size(false, $toggle_office_weight);
+        @include strict_size(31px, $toggle_office_weight);
       }
     }
   }

@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 
 import wow from '@/utils/wow';
+
 import App from './App.vue';
 
 import 'animate.css';

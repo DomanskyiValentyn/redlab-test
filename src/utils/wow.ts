@@ -6,7 +6,7 @@ const config = {
   offset: 0, // distance to the element when triggering the animation (default is 0)
   mobile: true, // trigger animations on mobile devices (default is true)
   live: true, // act on asynchronously loaded content (default is true)
-  // callback:     function(box) {},
+  callback: null,
   scrollContainer: null, // optional scroll container selector, otherwise use window,
   resetAnimation: true, // reset animation on end (default is true)
 };

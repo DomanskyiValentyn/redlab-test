@@ -10,6 +10,7 @@
   "dependencies": {
     "animate.css": "^4.1.1",
     "core-js": "^3.8.3",
+    "gsap": "^3.10.4",
     "normalize.css": "^8.0.1",
     "vue": "^3.2.13",
     "vue-class-component": "^8.0.0-0",
@@ -61,6 +62,7 @@
       "vue/multi-word-component-names": "off",
       "import/order": "off",
       "vuejs-accessibility/click-events-have-key-events": "off",
+      "vuejs-accessibility/mouse-events-have-key-events": "off",
       "vuejs-accessibility/form-control-has-label": "off",
       "no-unused-expressions": [
         "error",

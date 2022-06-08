@@ -3,7 +3,12 @@
     <div class="cards--container">
       <template v-for="(card, index) in cards" :key="index">
         <div class="card">
-          <div class="card__info" :class="card.className">
+          <div
+            class="card__info wow animate__fadeInUp animate__animated"
+            :class="card.className"
+            :data-wow-delay="card.delay"
+            data-wow-offset="200"
+          >
             <h4>{{ card.title }}</h4>
 
             <img :src="methods.getPhotoFromAssets(`cards/${card.photo}.png`)" alt="">
@@ -44,24 +49,28 @@ export default class SectionCards extends Vue {
       title: 'Тщательно отобранный персонал',
       photo: 'personal',
       className: 'personal',
+      delay: '0s',
       description: this.description,
     },
     {
       title: 'Качественная эко-химия',
       photo: 'chemistry',
       className: 'chemistry',
+      delay: '0.1s',
       description: this.description,
     },
     {
       title: 'Контролируем качество',
       photo: 'quality',
       className: 'quality',
+      delay: '0.15s',
       description: this.description,
     },
     {
       title: 'Работаем круглосуточно',
       photo: 'around_the_clock',
       className: 'around-the-clock',
+      delay: '0.2s',
       description: this.description,
     },
   ];
@@ -82,6 +91,9 @@ section#cards {
     @include for-custom(1440px) {
       justify-items: center;
       grid-template-columns: repeat(2, 1fr);
+
+      max-width: 640px;
+      margin: 0 auto;
     }
 
     @include for-mobile {

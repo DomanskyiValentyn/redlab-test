@@ -2,7 +2,7 @@
   <section id="hero">
 
     <div class="hero__photo">
-      <img src="@/assets/hero-photo.jpg" alt="">
+      <img src="@/assets/hero-photo.jpg" class="animate__slideInLeft wow animate__animated" alt="hero photo">
     </div>
 
     <div class="hero__info">
@@ -33,7 +33,7 @@ export default class HeroSection extends Vue {
 
 <style lang="scss">
 section#hero {
-  min-height: calc(100vh - $top_header_height);
+  min-height: 100vh;
 
   display: flex;
   align-items: center;

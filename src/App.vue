@@ -1,11 +1,12 @@
 <template>
   <Header />
 
-  <!-- <OrderCleaning /> -->
+  <OrderCleaning />
 
   <Hero />
   <Cards />
   <HowWeClean />
+  <HowWeCleanDetail />
 </template>
 
 <script lang="ts">
@@ -18,6 +19,7 @@ import OrderCleaning from '@/sections/OrderCleaning.vue';
 import Hero from '@/sections/Hero.vue';
 import Cards from '@/sections/Cards.vue';
 import HowWeClean from '@/sections/HowWeClean.vue';
+import HowWeCleanDetail from '@/sections/HowWeCleanDetail.vue';
 
 @Options({
   components: {
@@ -26,13 +28,14 @@ import HowWeClean from '@/sections/HowWeClean.vue';
     Hero,
     Cards,
     HowWeClean,
+    HowWeCleanDetail,
   },
 })
 export default class App extends Vue {}
 </script>
 
 <style lang="scss">
-section#cards, section#how-we-clean {
+section#cards, section#how-we-clean, section#how-we-clean-detail {
   @include max-width-content;
 }
 
