@@ -35,7 +35,7 @@ export default class App extends Vue {}
 </script>
 
 <style lang="scss">
-section#cards, section#how-we-clean, section#how-we-clean-detail {
+section#cards, section#how-we-clean {
   @include max-width-content;
 }
 

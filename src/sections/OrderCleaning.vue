@@ -1,42 +1,116 @@
 <template>
-  <button
-    ref="button"
+  <div
+    ref="container"
     class="order-cleaning"
-    :class="{ scroll: isPageScroll }">
-      Заказать <br /> уборку
+    @mouseenter="mouseEnter"
+    @mouseleave="mouseLeave"
+  >
+    <button ref="button" class="order-cleaning--button" @mousemove="mouseMove">
+      <span ref="text">Заказать <br />уборку</span>
     </button>
+  </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+
 @Options({
-  components: {
-
-  },
-  props: {
-
-  },
+  components: {},
+  props: {},
 })
 export default class OrderCleaning extends Vue {
   declare $refs: {
+    container: HTMLDivElement,
     button: HTMLButtonElement;
+    text: HTMLSpanElement;
+  };
+
+  public mouseMove(e: any): void {
+    this.moveText(e);
+
+    this.moveButton(e);
   }
 
-  public isPageScroll = false;
+  private moveText(e: any): void {
+    const rect = this.$refs.container.getBoundingClientRect();
 
-  public watchScroll(): void {
-    this.isPageScroll = !!window.scrollY;
+    gsap.to(this.$refs.text, {
+      x: e.layerX * 0.15,
+      y: (e.layerY - (rect.height / 2)) * 0.25,
+    });
+  }
+
+  private moveButton(e: any): void {
+    const rect = this.$refs.container.getBoundingClientRect();
+
+    gsap.to(this.$refs.button, {
+      x: e.layerX * 0.3,
+      y: (e.layerY - (rect.height / 2)) * 0.25,
+    });
+  }
+
+  public mouseEnter(): void {
+    gsap.to(this.$refs.container, { scale: 1, y: 0, ease: 'none' });
+  }
+
+  public mouseLeave(): void {
+    const rect = document.getElementById('cards')!.getBoundingClientRect();
+
+    const config = rect.y >= (window.innerHeight + 73) ? { scale: 1, y: 0 } : { scale: 0.8, y: 50 };
+
+    gsap.to(this.$refs.container, config);
+
+    gsap.to(this.$refs.button, { x: 0, y: 0 });
+
+    gsap.to(this.$refs.text, { x: 0, y: 0 });
+  }
+
+  public animation(): void {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.to(this.$refs.text, {
+      rotation: 360,
+      duration: 30,
+      ease: 'none',
+      repeat: -1,
+    });
+
+    gsap.to(this.$refs.container, {
+      scrollTrigger: {
+        trigger: '#cards',
+        start: 'top bottom',
+        end: 'top bottom',
+        scrub: true,
+      },
+      scale: 0.8,
+      y: 50,
+      duration: 1,
+    });
+
+    gsap.to(this.$refs.container, {
+      scrollTrigger: {
+        trigger: '#how-we-clean-detail',
+        start: 'top bottom',
+        end: 'top bottom',
+        scrub: true,
+      },
+      y: 210,
+      ease: 'none',
+      duration: 1,
+    });
   }
 
   mounted(): void {
-    document.addEventListener('scroll', this.watchScroll);
+    this.animation();
   }
 }
 </script>
 
 <style lang="scss">
-button.order-cleaning {
+.order-cleaning {
   display: block;
 
   position: fixed;
@@ -44,31 +118,43 @@ button.order-cleaning {
   left: 50%;
   z-index: 50;
 
-  text-align: center;
-
-  background-color: $purple;
-
-  border-radius: 100%;
-
-  color: $white;
-
-  animation: btn_order_cleaning 30s linear infinite;
-
   transition: 1s all;
 
-  &, &:hover, &.scroll:hover {
-    @include strict_size(195px, 195px);
+  transform: translate(-50%);
 
-    @include font_btn_primary_text;
-  }
+  @include strict_size(195px, 195px);
 
-  &.scroll {
-    bottom: -30px;
+  &--button {
+    width: 100%;
+    height: 100%;
 
-    @include strict_size(150px, 150px);
+    text-align: center;
 
-    font-size: 14px;
-    line-height: 19px;
+    background-color: $purple;
+
+    border-radius: 100%;
+
+    &::after {
+      content: '';
+
+      display: block;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+
+      width: 100%;
+      height: 100%;
+    }
+
+    span {
+      display: inline-block;
+
+      color: $white;
+
+      @include font_btn_primary_text;
+    }
   }
 }
 </style>

@@ -7,7 +7,7 @@
             class="card__info wow animate__fadeInUp animate__animated"
             :class="card.className"
             :data-wow-delay="card.delay"
-            data-wow-offset="200"
+            data-wow-offset="100"
           >
             <h4>{{ card.title }}</h4>
 

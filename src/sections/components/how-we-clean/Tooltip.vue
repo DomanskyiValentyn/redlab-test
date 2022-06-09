@@ -38,7 +38,7 @@ export default class HowWeCleanTooltip extends Vue {
     justify-content: center;
 
     position: absolute;
-    top: -45px;
+    top: -44px;
     left: 0;
     transform: translate(-50%, -50%);
 
@@ -56,7 +56,7 @@ export default class HowWeCleanTooltip extends Vue {
       display: block;
 
       position: absolute;
-      bottom: -8px;
+      bottom: -7px;
       left: 50%;
 
       transform: translate(-50%);
@@ -109,7 +109,7 @@ export default class HowWeCleanTooltip extends Vue {
     svg {
       @include strict_size(12px, 12px);
 
-      transition: $trs;
+      transition: 0.4s all;
     }
 
     &.open {
