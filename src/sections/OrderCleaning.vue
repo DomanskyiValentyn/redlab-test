@@ -7,6 +7,7 @@
   >
     <button ref="button" class="order-cleaning--button" @mousemove="mouseMove">
       <span ref="text">Заказать <br />уборку</span>
+      <span class="border"></span>
     </button>
   </div>
 </template>
@@ -38,8 +39,8 @@ export default class OrderCleaning extends Vue {
     const rect = this.$refs.container.getBoundingClientRect();
 
     gsap.to(this.$refs.text, {
-      x: e.layerX * 0.15,
-      y: (e.layerY - (rect.height / 2)) * 0.25,
+      x: e.layerX * 0.2,
+      y: (e.layerY - (rect.height / 2)) * 0.15,
     });
   }
 
@@ -142,6 +143,7 @@ export default class OrderCleaning extends Vue {
       position: absolute;
       top: 0;
       left: 0;
+
       z-index: 10;
 
       width: 100%;
@@ -151,9 +153,60 @@ export default class OrderCleaning extends Vue {
     span {
       display: inline-block;
 
+      position: relative;
+      z-index: 6;
+
       color: $white;
 
       @include font_btn_primary_text;
+    }
+
+    .border {
+      display: block;
+
+      background-color: $purple;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 4;
+
+      width: 100%;
+      height: 100%;
+
+      border-radius: 100%;
+
+      transition: $trs;
+
+      &::before {
+        content: '';
+
+        position: absolute;
+        top: -2px;
+        left: -2px;
+
+        width: 100%;
+        height: 100%;
+
+        border: 1px solid $white;
+        border-radius: 100%;
+
+        transition: $trs;
+
+        opacity: 0;
+      }
+    }
+
+    &:hover {
+      .border {
+        transform: scale(1.2);
+
+        &::before {
+          transform: scale(1.6);
+
+          opacity: 0.3;
+        }
+      }
     }
   }
 }
