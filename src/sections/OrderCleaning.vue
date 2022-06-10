@@ -93,9 +93,9 @@ export default class OrderCleaning extends Vue {
 
     gsap.to(this.$refs.container, {
       scrollTrigger: {
-        trigger: '#how-we-clean-detail',
-        start: 'top bottom',
-        end: 'top bottom',
+        trigger: '#how-we-clean',
+        start: 'bottom bottom',
+        end: 'bottom bottom',
         scrub: true,
       },
       y: 210,

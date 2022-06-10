@@ -81,7 +81,16 @@ export default class SectionCards extends Vue {
 
 <style lang="scss">
 section#cards {
-  margin: 0 60px;
+  @include max-width-content;
+
+  margin: {
+    top: 73px;
+    bottom: 150px;
+    left: auto;
+    right: auto;
+  };
+
+  padding: 0 60px;
 
   .cards--container {
     display: grid;

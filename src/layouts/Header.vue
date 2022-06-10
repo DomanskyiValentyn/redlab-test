@@ -1,5 +1,5 @@
 <template>
-  <header ref="header" class="top-header" :class="{ scroll: isPageScroll }">
+  <header ref="header" id="top-header" class="top-header" :class="{ scroll: isPageScroll }">
     <Logo />
 
     <div class="top-header__toggle" :class="toggle">
@@ -113,6 +113,8 @@ $toggle_office_weight: 65px;
     left: 54px;
     right: 36px;
   };
+
+  transition: 1s all ;
 
   @include strict_size($top_header_height, 100%);
 
