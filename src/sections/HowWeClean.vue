@@ -13,21 +13,21 @@
       <div ref="photo" class="how-we-clean__photo--tooltip">
         <img src="@/assets/how_we_clean/kitchen.jpg" alt="how we clean">
       </div>
+
+      <nav ref="nav" class="how-we-clean__nav">
+        <template v-for="(tab, index) in tabs" :key="index">
+          <li>
+            <button @click="activeTab = tab">
+              <template v-if="activeTab === tab">
+                →
+              </template>
+              {{ ROOMS_TRANSLATE[tab] }}
+            </button>
+          </li>
+        </template>
+      </nav>
     </div>
   </section>
-
-  <nav ref="nav" class="how-we-clean__nav">
-    <template v-for="(tab, index) in tabs" :key="index">
-      <li>
-        <button @click="activeTab = tab">
-          <template v-if="activeTab === tab">
-            →
-          </template>
-          {{ ROOMS_TRANSLATE[tab] }}
-        </button>
-      </li>
-    </template>
-  </nav>
 </template>
 
 <script lang="ts">
@@ -177,6 +177,16 @@ export default class HowWeClean extends Vue {
       right: 70px;
     };
 
+    @include for-tablet {
+      position: static;
+
+      transform: none;
+      padding: {
+        top: 20px;
+        bottom: 20px;
+      };
+    }
+
     li {
       button {
         font-style: italic;
@@ -206,6 +216,8 @@ export default class HowWeClean extends Vue {
     }
 
     &--tooltip {
+      display: flex;
+
       transition: 1s all;
 
       img {
