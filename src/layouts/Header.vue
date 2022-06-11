@@ -1,22 +1,24 @@
 <template>
   <header ref="header" id="top-header" class="top-header" :class="{ scroll: isPageScroll }">
-    <Logo />
+    <div class="top-header__logo">
+      <Logo />
 
-    <div class="top-header__toggle" :class="toggle">
-      <button
-        class="house"
-        :class="{ active: toggle === TOGGLE.house }"
-        @click="toggle = TOGGLE.house"
-      >
-        Дом
-      </button>
-      <button
-        class="office"
-        :class="{ active: toggle === TOGGLE.office }"
-        @click="toggle = TOGGLE.office"
-      >
-        Офис
-      </button>
+      <div class="top-header__toggle" :class="toggle">
+        <button
+          class="house"
+          :class="{ active: toggle === TOGGLE.house }"
+          @click="toggle = TOGGLE.house"
+        >
+          Дом
+        </button>
+        <button
+          class="office"
+          :class="{ active: toggle === TOGGLE.office }"
+          @click="toggle = TOGGLE.office"
+        >
+          Офис
+        </button>
+      </div>
     </div>
 
     <nav class="top-header__links">
@@ -25,13 +27,15 @@
       </template>
     </nav>
 
-    <div class="top-header__contact-info">
-      <p><b>+380 67 401 69 77</b></p>
-      <span class="separator"></span>
-      <p><b>24/7</b></p>
-    </div>
+    <div class="top-header__info">
+      <div class="top-header__contact-info">
+        <p><b>+380 67 401 69 77</b></p>
+        <span class="separator"></span>
+        <p><b>24/7</b></p>
+      </div>
 
-    <button class="top-header__menu"></button>
+      <button class="top-header__menu"></button>
+    </div>
 
   </header>
 </template>
@@ -134,6 +138,14 @@ $toggle_office_weight: 65px;
 
   svg.logo {
     @include strict_size(25px, false);
+
+    margin-right: 20px;
+  }
+
+  &__logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   &__toggle {
@@ -151,6 +163,10 @@ $toggle_office_weight: 65px;
     padding: 2px;
 
     transition: $trs;
+
+    @include for-custom(820px) {
+      display: none;
+    }
 
     &::before {
       display: block;
@@ -222,6 +238,10 @@ $toggle_office_weight: 65px;
     align-items: center;
     gap: 32px;
 
+    @include for-custom(1440px) {
+      display: none;
+    }
+
     li a {
       @include font_menu-text;
 
@@ -233,10 +253,23 @@ $toggle_office_weight: 65px;
     }
   }
 
+  &__info {
+    display: flex;
+    align-items: center;
+
+    button {
+      margin-left: 25px;
+    }
+  }
+
   &__contact-info {
     display: flex;
     align-items: center;
     gap: 15px;
+
+    @include for-custom(820px) {
+      display: none;
+    }
 
     span.separator {
       display: inline-block;

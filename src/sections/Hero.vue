@@ -7,7 +7,7 @@
 
     <div class="hero__info">
       <div class="hero__info--text">
-        <h1 class="hero">Уборка квартир в Киеве </h1>
+        <h1 class="hero">Уборка <br /> квартир <br /> в Киеве </h1>
 
         <p>Мы уберем у вас дома или в офисе. Наведем чистоту после ремонта и проведем генеральную уборку. </p>
       </div>
@@ -38,10 +38,21 @@ section#hero {
   display: flex;
   align-items: center;
 
+  @include for-tablet {
+    flex-direction: column-reverse;
+
+    padding-top: 50px;
+  }
+
   .hero {
     &__photo {
       height: 100%;
       width: 50%;
+
+      @include for-tablet {
+        width: 100%;
+        height: 50%;
+      }
 
       img {
         height: 100%;
@@ -57,8 +68,19 @@ section#hero {
       height: 100%;
       width: 50%;
 
+      @include for-tablet {
+        width: 100%;
+        max-width: 400px;
+
+        padding: 0 25px;
+      }
+
       &--text {
         max-width: 400px;
+
+        @include for-tablet {
+          max-width: none;
+        }
       }
     }
   }

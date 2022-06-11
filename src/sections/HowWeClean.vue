@@ -1,36 +1,31 @@
 <template>
-  <section ref="container" id="how-we-clean">
-    <div class="how-we-clean__info">
-      <header ref="header">
-        <h2>Как мы убираем</h2>
-        <p>
-          Клинер приезжает в назначенное время со всем необходимым
-          и сразу приступает к делу. Вам остаётся только оценить результат.
-        </p>
-      </header>
+  <section id="how-we-clean" class="how-we-clean">
+    <header ref="header">
+      <h2>Как мы убираем</h2>
 
-      <div ref="photoContainer" class="how-we-clean__photo">
-        <img ref="photo" src="@/assets/how_we_clean/kitchen.jpg" alt="">
+      <p>
+        Клинер приезжает в назначенное время со всем необходимым
+        и сразу приступает к делу. Вам остаётся только оценить результат.
+      </p>
+    </header>
 
-        <div ref="tooltip" v-if="false" class="how-we-clean__tooltip">
-          <HowWeCleanTooltip text="Чистим фасад вытяжки" />
-        </div>
-      </div>
+    <div ref="photoContainer" class="how-we-clean__photo">
+      <img ref="photo" src="@/assets/how_we_clean/kitchen.jpg" alt="how we clean">
     </div>
-
-    <nav ref="nav">
-      <template v-for="(tab, index) in tabs" :key="index">
-        <li>
-          <button @click="activeTab = tab">
-            <template v-if="activeTab === tab">
-              →
-            </template>
-            {{ ROOMS_TRANSLATE[tab] }}
-          </button>
-        </li>
-      </template>
-    </nav>
   </section>
+
+  <nav ref="nav" class="how-we-clean__nav">
+    <template v-for="(tab, index) in tabs" :key="index">
+      <li>
+        <button @click="activeTab = tab">
+          <template v-if="activeTab === tab">
+            →
+          </template>
+          {{ ROOMS_TRANSLATE[tab] }}
+        </button>
+      </li>
+    </template>
+  </nav>
 </template>
 
 <script lang="ts">
@@ -38,8 +33,6 @@ import { Options, Vue } from 'vue-class-component';
 
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
-
-import HowWeCleanTooltip from './components/how-we-clean/Tooltip.vue';
 
 enum ROOMS {
   kitchen = 'kitchen',
@@ -56,21 +49,15 @@ enum ROOMS_TRANSLATE {
 }
 
 @Options({
-  components: {
-    HowWeCleanTooltip,
-  },
-  props: {
-
-  },
+  components: {},
+  props: {},
 })
-export default class HowWeCleanDetail extends Vue {
+export default class HowWeClean extends Vue {
   declare $refs: {
     header: HTMLElement;
-    container: HTMLElement;
-    photoContainer: HTMLDivElement;
-    photo: HTMLImageElement;
+    photoContainer: HTMLElement;
+    photo: HTMLElement;
     nav: HTMLElement;
-    tooltip: HTMLDivElement;
   }
 
   public ROOMS = ROOMS;
@@ -86,45 +73,35 @@ export default class HowWeCleanDetail extends Vue {
 
   public activeTab = this.tabs[0];
 
-  public animation(): void {
-    const navRect = this.$refs.nav.getBoundingClientRect();
+  get distance(): number {
+    console.log(12);
 
-    const scrollTrigger = {
-      trigger: this.$refs.container,
-      start: 'bottom bottom',
-      end: 'bottom bottom',
+    return 12;
+  }
+
+  private animation(): void {
+    const scrollTrigger: ScrollTrigger.Vars = {
+      trigger: this.$refs.photoContainer,
+      start: '25% center',
+      end: '25% center',
+      markers: true,
       scrub: true,
     };
 
+    gsap.set(this.$refs.photo, { height: window.innerHeight });
+
     gsap.registerPlugin(ScrollTrigger);
 
-    gsap.to('#top-header', {
-      scrollTrigger,
-      y: '-120%',
-    });
+    gsap.to(this.$refs.header, { scrollTrigger, y: -150, ease: 'none' });
 
-    gsap.to(this.$refs.nav, {
-      scrollTrigger,
-      x: 0,
-    });
+    gsap.to('#top-header', { scrollTrigger, y: -150, ease: 'none' });
 
-    gsap.to(this.$refs.header, {
-      scrollTrigger,
-      y: '-100%',
-    });
+    gsap.to(this.$refs.nav, { scrollTrigger, x: '0', ease: 'none' });
 
-    gsap.to(this.$refs.photoContainer, {
-      scrollTrigger,
-    });
+    gsap.to('#order-cleaning', { scrollTrigger, y: 200, ease: 'none' });
 
     gsap.to(this.$refs.photo, {
       scrollTrigger,
-      borderRadius: 0,
-      // position: 'fixed',
-      y: '0',
-      x: '0',
-      maxHeight: '100vh',
-      width: `calc(100% - ${navRect.width}px)`,
     });
   }
 
@@ -135,76 +112,47 @@ export default class HowWeCleanDetail extends Vue {
 </script>
 
 <style lang="scss">
-#how-we-clean {
-  display: flex;
-  flex-direction: column;
+.how-we-clean {
+  @include max-width-content;
 
-  position: relative;
+  header {
+    display: flex;
+    justify-content: space-between;
 
-  padding-bottom: 100px;
+    transition: 1s all;
 
-  min-height: 100vh;
+    margin: {
+      bottom: 52px;
+    };
 
-  .how-we-clean {
-    &__info {
-      @include max-width-content;
-
-      margin: 0 auto;
-
-      header {
-        display: flex;
-        justify-content: space-between;
-
-        transition: 1s all;
-
-        margin: {
-          bottom: 52px;
-        };
-
-        h2 {
-          margin-right: 20px;
-        }
-        p {
-          max-width: 414px;
-        }
-      }
+    h2 {
+      margin-right: 20px;
     }
-
-    &__photo {
-      &, & img {
-        transition: 2s all;
-      }
-
-      img {
-        max-height: 630px;
-        height: 100%;
-        width: 100%;
-
-        border-radius: 8px;
-      }
+    p {
+      max-width: 414px;
     }
   }
 
-  nav {
+  &__nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    transform: translateX(calc(-100% - 70px));
+
     display: flex;
     flex-direction: column;
     justify-content: center;
 
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    height: 100%;
-    width: 100%;
-    max-width: 400px;
-
     background-color: $purple;
 
-    transform: translate(-100%, 0);
+    height: 100%;
+
     transition: 1s all;
 
     padding: {
       left: 60px;
+      right: 70px;
     };
 
     li {
@@ -224,6 +172,20 @@ export default class HowWeCleanDetail extends Vue {
           opacity: 1;
         }
       }
+    }
+  }
+
+  &__photo {
+    min-height: 100vh;
+    width: 100%;
+
+    img {
+      transition: 1s all;
+
+      height: 100%;
+      width: 100%;
+
+      min-height: 100vh;
     }
   }
 }

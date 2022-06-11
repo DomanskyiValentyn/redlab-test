@@ -1,6 +1,7 @@
 <template>
   <div
     ref="container"
+    id="order-cleaning"
     class="order-cleaning"
     @mouseenter="mouseEnter"
     @mouseleave="mouseLeave"

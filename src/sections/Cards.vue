@@ -83,6 +83,10 @@ export default class SectionCards extends Vue {
 section#cards {
   @include max-width-content;
 
+  @include for-tablet {
+    padding: 0;
+  }
+
   margin: {
     top: 73px;
     bottom: 150px;
