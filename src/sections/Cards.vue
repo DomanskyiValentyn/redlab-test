@@ -5,6 +5,7 @@
         <div class="card">
           <div
             class="card__info wow animate__fadeInUp animate__animated"
+            tr
             :class="card.className"
             :data-wow-delay="card.delay"
             data-wow-offset="100"
@@ -83,18 +84,12 @@ export default class SectionCards extends Vue {
 section#cards {
   @include max-width-content;
 
-  @include for-tablet {
-    padding: 0;
-  }
-
   margin: {
     top: 73px;
     bottom: 150px;
     left: auto;
     right: auto;
   };
-
-  padding: 0 60px;
 
   .cards--container {
     display: grid;
@@ -128,6 +123,8 @@ section#cards {
         justify-content: space-between;
         flex-direction: column;
 
+        position: relative;
+
         width: 100%;
         height: 100%;
 
@@ -141,6 +138,18 @@ section#cards {
           max-width: 219px;
 
           text-align: center;
+        }
+
+        img {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+
+          opacity: 1;
+          transform: translateX(-50%);
+          transition: 0.5s all;
+
+          z-index: 10;
         }
 
         &.personal {
@@ -178,12 +187,24 @@ section#cards {
         height: 100%;
         width: 100%;
 
+        transition: 0.5s all;
+
         background-color: $purple;
 
         padding: 30px;
 
         p {
           color: $white;
+        }
+      }
+
+      &:hover {
+        .card__description {
+          opacity: 1;
+        }
+
+        img {
+          opacity: 0;
         }
       }
     }

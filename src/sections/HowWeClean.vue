@@ -10,7 +10,9 @@
     </header>
 
     <div ref="photoContainer" class="how-we-clean__photo">
-      <img ref="photo" src="@/assets/how_we_clean/kitchen.jpg" alt="how we clean">
+      <div ref="photo" class="how-we-clean__photo--tooltip">
+        <img src="@/assets/how_we_clean/kitchen.jpg" alt="how we clean">
+      </div>
     </div>
   </section>
 
@@ -31,6 +33,8 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 
+import HowWeCleanTooltip from '@/sections/components/how-we-clean/Tooltip.vue';
+
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 
@@ -49,7 +53,9 @@ enum ROOMS_TRANSLATE {
 }
 
 @Options({
-  components: {},
+  components: {
+    HowWeCleanTooltip,
+  },
   props: {},
 })
 export default class HowWeClean extends Vue {
@@ -82,13 +88,18 @@ export default class HowWeClean extends Vue {
   private animation(): void {
     const scrollTrigger: ScrollTrigger.Vars = {
       trigger: this.$refs.photoContainer,
-      start: '25% center',
-      end: '25% center',
-      markers: true,
+      start: 'bottom bottom',
+      end: 'top top',
       scrub: true,
     };
 
-    gsap.set(this.$refs.photo, { height: window.innerHeight });
+    const containerRect = this.$refs.photoContainer.getBoundingClientRect();
+    const navRect = this.$refs.nav.getBoundingClientRect();
+
+    gsap.set([this.$refs.photo, this.$refs.photoContainer], {
+      height: window.innerHeight,
+      minHeight: window.innerHeight,
+    });
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -102,11 +113,18 @@ export default class HowWeClean extends Vue {
 
     gsap.to(this.$refs.photo, {
       scrollTrigger,
+      position: 'fixed',
+      top: 0,
+      left: containerRect.left,
+      width: `calc(100vw - ${navRect.width}px)`,
+      x: -(containerRect.left - navRect.width),
     });
   }
 
   mounted(): void {
-    this.animation();
+    if (window.innerWidth >= 1080) {
+      this.animation();
+    }
   }
 }
 </script>
@@ -121,12 +139,20 @@ export default class HowWeClean extends Vue {
 
     transition: 1s all;
 
-    margin: {
-      bottom: 52px;
-    };
+    margin: 0 20px;
+
+    margin-bottom: 52px;
+
+    @include for-tablet {
+      flex-direction: column;
+    }
 
     h2 {
       margin-right: 20px;
+
+      @include for-tablet {
+        margin-bottom: 20px;
+      }
     }
     p {
       max-width: 414px;
@@ -137,6 +163,8 @@ export default class HowWeClean extends Vue {
     position: fixed;
     left: 0;
     top: 0;
+
+    min-width: 415px;
 
     transform: translateX(calc(-100% - 70px));
 
@@ -176,16 +204,24 @@ export default class HowWeClean extends Vue {
   }
 
   &__photo {
-    min-height: 100vh;
     width: 100%;
+    min-height: 100vh;
 
-    img {
+    @include for-tablet {
+      min-height: auto;
+    }
+
+    &--tooltip {
       transition: 1s all;
 
-      height: 100%;
-      width: 100%;
+      img {
+        height: 100%;
+        width: 100%;
 
-      min-height: 100vh;
+        @include for-tablet {
+          min-height: auto;
+        }
+      }
     }
   }
 }
