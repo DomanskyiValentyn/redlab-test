@@ -79,12 +79,6 @@ export default class HowWeClean extends Vue {
 
   public activeTab = this.tabs[0];
 
-  get distance(): number {
-    console.log(12);
-
-    return 12;
-  }
-
   private animation(): void {
     const scrollTrigger: ScrollTrigger.Vars = {
       trigger: this.$refs.photoContainer,
