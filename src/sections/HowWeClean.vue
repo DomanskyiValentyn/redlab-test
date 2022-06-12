@@ -95,6 +95,8 @@ export default class HowWeClean extends Vue {
       minHeight: window.innerHeight,
     });
 
+    gsap.set(this.$refs.nav, { x: '-100%' });
+
     gsap.registerPlugin(ScrollTrigger);
 
     gsap.to(this.$refs.header, { scrollTrigger, y: -150, ease: 'none' });
